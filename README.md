@@ -12,7 +12,7 @@ console.log(scss.definitions); // use before .toCss()
 console.log(scss.toCss());     // .definitions are empty after calling this
 ```
 
-See live demo [http://kerio.github.io/kerio-sass-js/][here].
+See live demo [here](http://kerio.github.io/kerio-sass-js/).
 
 ## Run tests
 
