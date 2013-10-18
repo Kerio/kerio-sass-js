@@ -1,0 +1,40 @@
+.stack-trace {
+	white-space: pre;
+}
+
+.gen {
+	margin-bottom: 10px;
+}
+
+span.bottom-space {
+	margin-bottom: 20px;
+	display: block;
+}
+
+div.well p {
+	margin-bottom: 0px;
+}
+
+.CodeMirror {
+	border: 1px solid #ddd;
+	font-size:12px;
+	height: auto; /* http://codemirror.net/demo/resize.html */
+}
+.CodeMirror-scroll {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+#tests {
+	display: block;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 100px;
+	color: black;
+	background-color: yellow;
+	border: 1px black solid;
+	text-align: center;
+}
+
+#tests:hover { font-weight: bold; }

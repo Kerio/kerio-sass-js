@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Kerio SASS.js</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+	<link rel="stylesheet" href="css/codemirror.css" />
+	<link rel="stylesheet" href="css/app.css" />
+
+	<script type="text/javascript" src="js/sass.js"></script>
+
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script>
+	if(!window.jQuery)
+	{
+		window.jQuery = Zepto
+	}
+	</script>
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/codemirror.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+
+	<script src="js/codemirror/matchbrackets.js"></script>
+	<script src="js/codemirror/javascript.js"></script>
+	<script src="js/codemirror/sass.js"></script>
+
+</head>
+<body>
+<div class="container">
+
+	<div class="page-header">
+		<h1>Kerio SASS.js<br /><small>This is SASS processor written in JavaScript.</small></h1>
+	</div>
+
+	<div class="well">
+	<p>
+	<a target="_blank" href="http://sass-lang.com/guide">Learn SASS language.</a>
+	</p>
+	</div>
+
+	<h2>What is supported</h2>
+
+	<p>
+	<ul>
+		<li>SCSS syntax</li>
+		<ul>
+			<li>Variables</li>
+			<li>Nesting</li>
+			<li>Mixins</li>
+			<li>Interpolation</li>
+			<li>@import</li>
+		</ul>
+		<li>Built-in functions</li>
+		<ul>
+			<li>ceil( val )</li>
+			<li>floor( val )</li>
+			<li>round( val )</li>
+			<li>lighten( color, amount )</li>
+			<li>darken( color, amount )</li>
+			<li>hsb( hue, saturation, value )</li>
+			<li>mix( background, over, amount )</li>
+			<li>mixBlack( background, amount )</li>
+			<li>mixWhite( background, amount )</li>
+			<li>ieGradient( opacity )</li>
+			<li>transparentize( color, amount )</li>
+		</ul>
+
+		<li><a href="http://www.w3schools.com/html/html_colornames.asp">HTML color names</a></li>
+		<li>Default or custom logger</li>
+		<li>Default or custom scss loader</li>
+		<li>Default or custom string streams</li>
+	</ul>
+	</p>
+
+	<h2>What is not supported - yet</h2>
+
+	<p>
+	<ul>
+		<li>@extend</li>
+		<li>Optional semicolons.</li>
+		<li>Mixin's default values of arguments.</li>
+		<li>Immediate evaluation of mathematical expression. Use ceil() or floor() always.</li>
+	</ul>
+	</p>
+
+	<h2>Example usage</h2>
+
+	<span class="bottom-space">
+	<textarea id="usage">
+var scss = new SASS();
+var text = '/* SCSS */ h1 { color: red; }';
+
+scss.process(text);
+
+console.log(scss.definitions); // use before .toCss()
+console.log(scss.toCss());     // .definitions are empty after calling this
+	</textarea>
+	</span>
+
+	<h2>Playground</h2>
+
+	<button class="gen">Compile</button>
+	<div id="playground" class="row">
+		<div class="col-md-6">
+		<textarea class="source">
+/*
+ * Put some SCSS here.
+ */
+
+h1 { color: red; }
+		</textarea>
+		</div>
+		<div class="col-md-6">
+		<textarea class="target"></textarea>
+		</div>
+	</div>
+
+	<h2>Examples</h2>
+
+	<h3>Variables</h3>
+
+	<button class="gen">Compile</button>
+	<div id="variables" class="row">
+		<div class="col-md-6">
+		<textarea class="source">
+$blue: #3bbfce;
+
+.content-navigation {
+  border-color: $blue;
+  color: darken($blue, 9%);
+}
+		</textarea>
+		</div>
+		<div class="col-md-6">
+		<textarea class="target"></textarea>
+		</div>
+	</div>
+
+	<h3>ceil() usage</h3>
+
+	<button class="gen">Compile</button>
+	<div id="variables-kerio" class="row">
+		<div class="col-md-6">
+		<textarea class="source">
+$margin: 16px;
+
+.border {
+  padding: ceil($margin / 2);
+  margin: ceil($margin / 2);
+}
+		</textarea>
+		</div>
+		<div class="col-md-6">
+		<textarea class="target"></textarea>
+		</div>
+	</div>
+
+	<h3>Nesting</h3>
+
+	<button class="gen">Compile</button>
+	<div id="nesting" class="row">
+		<div class="col-md-6">
+		<textarea class="source">
+table.hl {
+  margin: 2em 0;
+  td.ln {
+    text-align: right;
+  }
+}
+
+li {
+  font: {
+    family: serif;
+    weight: bold;
+    size: 1.2em;
+  }
+}
+		</textarea>
+		</div>
+		<div class="col-md-6">
+		<textarea class="target"></textarea>
+		</div>
+	</div>
+
+	<h3>Mixins</h3>
+
+	<button class="gen">Compile</button>
+	<div id="mixins" class="row">
+		<div class="col-md-6">
+		<textarea class="source">
+@mixin table-base {
+  th {
+    text-align: center;
+    font-weight: bold;
+  }
+  td, th {padding: 2px;} // semicolon required
+}
+
+@mixin left($dist) {
+  float: left;
+  margin-left: $dist;
+}
+
+#data {
+  @include left(10px);
+  @include table-base;
+}
+		</textarea>
+		</div>
+		<div class="col-md-6">
+		<textarea class="target"></textarea>
+		</div>
+	</div>
+
+	<h3>Interpolation</h3>
+
+	<button class="gen">Compile</button>
+	<div id="interpolation" class="row">
+		<div class="col-md-6">
+		<textarea class="source">
+$vert: top;
+$horz: left;
+$radius: 10px;
+
+.rounded-#{$vert}-#{$horz} {
+	border-#{$vert}-#{$horz}-radius: $radius;
+	-moz-border-radius-#{$vert}#{$horz}: $radius;
+	-webkit-border-#{$vert}-#{$horz}-radius: $radius;
+}
+		</textarea>
+		</div>
+		<div class="col-md-6">
+		<textarea class="target"></textarea>
+		</div>
+	</div>
+
+	<!-- end of content //-->
+
+	<div id="alert" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Compile error</h4>
+				</div>
+				<div class="modal-body">
+					<p class="stack-trace text-danger"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+</div><!-- end container //-->
+
+<a href="https://github.com/Kerio/kerio-sass-js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub"></a>
+
+</body>
+</html>
