@@ -1,0 +1,16 @@
+{
+  "name": "kerio-sass-js",
+  "version": "0.1.0",
+  "description": "Kerio SASS.js",
+  "main": "sass.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node tests/jsu-node-runner.js tests/sass-tests.js"
+  },
+  "author": "",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+  }
+}
